@@ -1,0 +1,80 @@
+; Installation file (.inf) for "wI-Deal" device
+; Version Information
+; -------------------
+[Version]
+Signature=$CHICAGO$  ; Represents all Windows OS's
+Provider=%MFGName%
+
+;CatalogFile=panini.cat
+DriverVer=09/02/2009, 10.1.0
+
+;DWB - 10/27/2008
+;------------------------------------------------
+;Class=USB
+;ClassGuid={36FC9E60-C465-11CF-8056-444553540000}
+Class=Panini
+ClassGuid={219179A1-5EF7-476b-87DE-DE13ED8FC50C}
+
+[Manufacturer]
+%MFGName%=DeviceList,NTamd64
+
+[DestinationDirs]
+;************
+;DefaultDestDir=10,System32\Drivers - Jungo default option
+;************
+DefaultDestDir=12
+
+[SourceDisksFiles]
+windrvr6.sys=1
+
+[SourceDisksNames]
+1=%InstDisk%,panini.cat,,
+
+
+[ClassInstall32]  ; Register a new class in Windows 2000 and later
+AddReg=UpDateRegistry
+
+[UpDateRegistry]
+HKR,,,,Panini
+HKR,,Icon,,-5
+
+
+;WinDriver Installation
+;=====================================================================
+
+;X86 platform, Win9x, Windows 2000 & later
+;-----------------------------------------
+[DeviceList]
+%WIDesc%=DriverInstall, USB\VID_121F&PID_0020
+
+;X64 platform, Windows XP 64 & later
+;-----------------------------------------
+[DeviceList.NTamd64]
+%WIDesc%=DriverInstall, USB\VID_121F&PID_0020
+
+;---------------------------------------------
+;Windows 2000 & later (x86 & x64 platforms)
+;---------------------------------------------
+[DriverInstall.NT]
+CopyFiles=DriverCopyFiles
+
+[DriverCopyFiles]
+windrvr6.sys,,,0x4
+
+[DriverInstall.NT.Services]
+AddService=WinDriver6,2,DriverService
+
+[DriverService]
+ServiceType=1	;SERVICE_KERNEL_DRIVER
+StartType=3	;SERVICE_DEMAND_START
+ErrorControl=1	;SERVICE_ERROR_NORMAL
+ServiceBinary=%12%\Windrvr6.sys
+
+;=====================================================================
+;WinDriver Installation
+
+[Strings]
+MFGName="Panini"
+InstDisk="Panini Installation Disk"
+WinDesc="WinDriver"
+WIDesc="wI-Deal"

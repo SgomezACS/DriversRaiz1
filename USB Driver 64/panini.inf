@@ -1,0 +1,104 @@
+; Installation file (.inf) for Panini Devices. Copyright (c) 2015 Panini SpA http://www.panini.com
+; Version Information
+; -------------------
+[Version]
+Signature=$CHICAGO$  ; Represents all Windows OS's
+Provider=%MFGName%
+
+CatalogFile=panini.cat
+DriverVer=08/10/2015, 12.0.0
+
+Class=Panini
+ClassGuid={219179A1-5EF7-476b-87DE-DE13ED8FC50C}
+
+[Manufacturer]
+%MFGName%=DeviceList,NTamd64
+
+[DestinationDirs]
+DefaultDestDir=12
+
+[SourceDisksFiles]
+PaniniUSB.sys=1
+
+[SourceDisksNames]
+1=%InstDisk%,,,.
+;Delete the above line and uncomment the next line for WHQL
+;1=%InstDisk%,panini.cat,,
+
+
+[ClassInstall32]  ; Register a new class in Windows 2000 and later
+AddReg=UpDateRegistry
+
+[UpDateRegistry]
+HKR,,,,Panini
+HKR,,Icon,,-5
+
+
+;WinDriver Installation
+;=====================================================================
+
+;X86 platform, Win9x, Windows 2000 & later
+;-----------------------------------------
+[DeviceList]
+%DESCRIPTION%=DriverInstall,*PaniniUSB
+%IDDesc%=DriverInstall, USB\VID_121F&PID_0010
+%VXNoFm%=DriverInstall, USB\VID_121F&PID_0001
+%VXFirm%=DriverInstall, USB\VID_121F&PID_0002
+%VSMBNF%=DriverInstall, USB\VID_121F&PID_0007
+%VSMVFm%=DriverInstall, USB\VID_121F&PID_0008
+%VSIBNF%=DriverInstall, USB\VID_121F&PID_0009
+%VSIBFm%=DriverInstall, USB\VID_121F&PID_000A
+%WIDEAL%=DriverInstall, USB\VID_121F&PID_0020
+%VXA4PG%=DriverInstall, USB\VID_121F&PID_0021
+%VNDesc%=DriverInstall, USB\VID_121F&PID_0030
+
+;X64 platform, Windows XP 64 & later
+;-----------------------------------------
+[DeviceList.NTamd64]
+%DESCRIPTION%=DriverInstall,*PaniniUSB
+%IDDesc%=DriverInstall, USB\VID_121F&PID_0010
+%VXNoFm%=DriverInstall, USB\VID_121F&PID_0001
+%VXFirm%=DriverInstall, USB\VID_121F&PID_0002
+%VSMBNF%=DriverInstall, USB\VID_121F&PID_0007
+%VSMVFm%=DriverInstall, USB\VID_121F&PID_0008
+%VSIBNF%=DriverInstall, USB\VID_121F&PID_0009
+%VSIBFm%=DriverInstall, USB\VID_121F&PID_000A
+%WIDEAL%=DriverInstall, USB\VID_121F&PID_0020
+%VXA4PG%=DriverInstall, USB\VID_121F&PID_0021
+%VNDesc%=DriverInstall, USB\VID_121F&PID_0030
+
+;---------------------------------------------
+;Windows 2000 & later (x86 & x64 platforms)
+;---------------------------------------------
+[DriverInstall.NT]
+CopyFiles=DriverCopyFiles
+
+[DriverCopyFiles]
+PaniniUSB.sys,,,0x40 ; COPYFLG_NOSKIP | COPYFLG_NO_VERSION_DIALOG (MAKE_IT: 0x40 ; COPYFLG_OVERWRITE_OLDER_ONLY)
+
+[DriverInstall.NT.Services]
+AddService=PaniniUSB,2,DriverService
+
+[DriverService]
+ServiceType=1	;SERVICE_KERNEL_DRIVER
+StartType=3	;SERVICE_DEMAND_START
+ErrorControl=1	;SERVICE_ERROR_NORMAL
+ServiceBinary=%12%\PaniniUSB.sys
+
+;=====================================================================
+;WinDriver Installation
+
+[Strings]
+MFGName="Panini"
+InstDisk="Panini Installation Disk"
+DESCRIPTION="Panini USB Driver"
+IDDesc="I-Deal"
+VXNoFm="VisionX without Firmware"
+VXFirm="VisionX with Firmware"
+VSMBNF="VisionS Mainboard without Firmware"
+VSMVFm="VisionS Mainboard with Firmware"
+VSIBNF="VisionS Imageboard without Firmware"
+VSIBFm="VisionS Imageboard with Firmware"
+WIDEAL="wI-Deal"
+VXA4PG="VisionX Page Scanner Extension"
+VNDesc="VisionNext"

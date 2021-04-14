@@ -1,0 +1,13 @@
+[MaskTable]
+keyType = String
+productName = A2iA CheckReader
+productVersion = 4.1Beta2
+productRelease = 1
+
+[MaskTable.defaultDefinition.doc]
+documentType = Check
+
+[MaskTable.defaultDefinition.doc.documentTypeInfo.CaseCheck.check]
+country = US
+amountRecognition = No
+

@@ -1,0 +1,20 @@
+[MaskTable]
+keyType = String
+
+[MaskTable.defaultDefinition.doc]
+documentType = Check
+
+[MaskTable.defaultDefinition.doc.verboseDetails]
+characterResults = Yes
+
+[MaskTable.defaultDefinition.doc.documentTypeInfo.CaseCheck.check]
+country = US
+
+[MaskTable.defaultDefinition.doc.documentTypeInfo.CaseCheck.check.fields]
+codeline = Yes
+codelineAmount = Yes
+codelineFont = E13B
+
+[MaskTable.defaultDefinition.doc.documentTypeInfo.CaseCheck.check.invalidityDetails]
+Codeline = Yes
+
